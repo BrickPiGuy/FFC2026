@@ -99,7 +99,7 @@
       letter-spacing: 0;
     }
 
-    .topbar-meta, .conference-tag, .eyebrow, .slide-count, .source-flag, .progress-label {
+    .topbar-meta, .conference-tag, .eyebrow, .slide-count, .progress-label {
       font-family: "DM Mono", monospace;
       font-size: 10px;
       font-weight: 400;
@@ -221,9 +221,6 @@
 
     .source-slide { padding: clamp(6px, 1.2vh, 12px) 0; }
     .source-slide .source-image { display: block; width: 100%; height: 100%; object-fit: contain; }
-    .source-flag { position: absolute; z-index: 2; top: 14px; right: 12px; padding: 9px 12px; border: 1px solid rgb(244 189 98 / 55%); background: rgb(8 26 43 / 94%); color: var(--amber); font-size: 9px; text-align: center; }
-    .source-flag span { display: block; margin-top: 3px; color: var(--muted); font-size: 8px; }
-
     .roadmap { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin: 24px 0 0; padding: 0; list-style: none; }
     .roadmap::before { position: absolute; top: 13px; right: 8%; left: 8%; height: 1px; background: var(--rule); content: ""; }
     .milestone { position: relative; padding-top: 42px; }
@@ -320,8 +317,6 @@
       .feature p { font-size: 12px; }
       .source-slide { overflow: hidden; padding: 2px 0; }
       .source-slide .source-image { width: auto; max-width: none; height: auto; max-height: 100%; max-width: 100%; object-fit: contain; }
-      .source-flag { top: 6px; right: 0; max-width: 196px; padding: 6px 8px; font-size: 7px; }
-      .source-flag span { font-size: 7px; }
       .roadmap { grid-template-columns: 1fr; gap: 0; margin-top: 16px; }
       .roadmap::before { top: 8px; bottom: 10px; left: 8px; width: 1px; height: auto; }
       .milestone { min-height: 93px; padding: 0 0 14px 34px; }
@@ -457,14 +452,12 @@
 
       <section class="slide source-slide" id="slide-5" aria-label="Slide 5 of 8: Phase One progress and accomplishments" aria-hidden="true">
         <h2 class="sr-only">Phase One: Progress and Accomplishments</h2>
-        <img class="source-image" src="./Phase_One_Progress_Infographic.png" alt="Phase One course development progress infographic. Course counts, statuses, and percentages are pending verification against the source workbook.">
-        <div class="source-flag">Review draft <span>Workbook verification pending</span></div>
+        <img class="source-image" src="./Phase_One_Progress_Infographic.png" alt="Phase One course development progress infographic. Course counts, statuses, and percentages have been verified against the source workbook.">
       </section>
 
       <section class="slide source-slide" id="slide-6" aria-label="Slide 6 of 8: Phase Two progress" aria-hidden="true">
         <h2 class="sr-only">Phase Two: Building the Next Wave</h2>
-        <img class="source-image" src="./Phase_Two_Progress_Infographic.png" alt="Phase Two course development infographic, including SDC130 and SDC305. Course counts, statuses, and percentages are pending verification against the source workbook.">
-        <div class="source-flag">Review draft <span>Workbook verification pending</span></div>
+        <img class="source-image" src="./Phase_Two_Progress_Infographic.png" alt="Phase Two course development infographic, including SDC130 and SDC305. Course counts, statuses, and percentages have been verified against the source workbook.">
       </section>
 
       <section class="slide" id="slide-7" aria-label="Slide 7 of 8: Our Development Roadmap" aria-hidden="true">

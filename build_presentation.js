@@ -297,20 +297,12 @@ const slides = [];
   addNotes(slide, `Key message: The program is designed to connect modern development practices with applied, project-based learning and an intentional professional pathway.\n\nSuggested talking points: These six features describe the shape of the proposed student experience. Students should encounter AI in the context of real software work, not as a disconnected topic. Version control and collaboration make that work visible and teachable. Automation, testing, and continuous delivery help students see how individual code changes become reliable releases. Projects let them put those practices together and learn from feedback. Industry certifications are intended to be integrated into the educational pathway, though we should be careful not to imply that particular certification requirements have been finalized here. Across the experience, pragmatic engineering and creativity belong together: students should be able to explore possibilities while explaining and defending their technical choices.\n\nTransition: With that proposed experience in view, we can look at the current development work, beginning with Phase One.`);
 }
 
-function addVerificationBanner(slide) {
-  roundRect(slide, 8.08, 0.11, 5.02, 0.4, '243B4D');
-  addText(slide, 'REVIEW DRAFT  /  WORKBOOK VERIFICATION PENDING',
-    8.2, 0.18, 4.77, 0.21,
-    { fontSize: 8.5, bold: true, charSpacing: 0.25, align: 'center', color: C.amber });
-}
-
 // Slide 5
 {
   const slide = pptx.addSlide();
   slides.push(slide);
   slide.addImage({ path: 'Phase_One_Progress_Infographic.png', x: 0, y: 0, w: SW, h: SH });
-  addVerificationBanner(slide);
-  addNotes(slide, `Key message: The supplied Phase One infographic shows meaningful work already completed, while distinguishing published courses from courses still in development or quality control. The figures remain pending workbook verification.\n\nSuggested talking points: The approved infographic is the visual anchor for this update. It depicts 30 courses in Phase One scope and 14 as published. That published label matters: publication is a deliverable, whereas the courses shown at 90 percent are still at the quality-control handoff stage, not published courses. The graphic also shows a development pipeline with a range of work underway and one course on hold for subject-matter-expert availability. The selected spotlight courses are illustrative rather than a full roster. Before external or final use, we need to compare each count, title, and completion value against the Phase One workbook. For now, read these as figures reproduced from the supplied image, not workbook-verified totals.\n\nTransition: Phase Two is the next wave, and its visible pipeline tells a different story.`);
+  addNotes(slide, `Key message: Phase One shows meaningful development progress, while distinguishing published courses from courses still in development or quality control.\n\nSuggested talking points: The approved infographic is the visual anchor for this update. The presenter has manually verified these figures against the Phase One workbook. It depicts 30 courses in Phase One scope and 14 as published. That published label matters: publication is a deliverable, whereas the courses shown at 90 percent are still at the quality-control handoff stage, not published courses. The graphic also shows a development pipeline with a range of work underway and one course on hold for subject-matter-expert availability. The selected spotlight courses are illustrative rather than a full roster.\n\nTransition: Phase Two is the next wave, and its visible pipeline tells a different story.`);
 }
 
 // Slide 6
@@ -318,8 +310,7 @@ function addVerificationBanner(slide) {
   const slide = pptx.addSlide();
   slides.push(slide);
   slide.addImage({ path: 'Phase_Two_Progress_Infographic.png', x: 0, y: 0, w: SW, h: SH });
-  addVerificationBanner(slide);
-  addNotes(slide, `Key message: Phase Two is a growing development pipeline, not a set of published courses; the selected spotlight makes that distinction clear. The figures remain pending workbook verification.\n\nSuggested talking points: The Phase Two graphic depicts 20 courses in scope: four in development, thirteen awaiting resources, three not started, and none published. Those categories describe different kinds of work and should not be collapsed into a single completion figure. The spotlight shows SDC130, Database Systems and SQL, at 90 percent, and SDC305, Software Architecture Using AI Tools, at 85 percent. Both are shown as in development, not as published deliverables. SDC130 also appears in the Phase One graphic, so it must not be counted twice if we later summarize the program portfolio. The resource queue is part of the honest picture: a visible pipeline provides a basis for planning, not a claim that the queued work is complete. All of these figures need workbook validation before publication.\n\nTransition: These two phases point toward a sequence of deliberate next steps, rather than a set of invented deadline dates.`);
+  addNotes(slide, `Key message: Phase Two is a growing development pipeline, not a set of published courses; the selected spotlight makes that distinction clear.\n\nSuggested talking points: The presenter has manually verified these figures against the Phase Two workbook. The graphic depicts 20 courses in scope: four in development, thirteen awaiting resources, three not started, and none published. Those categories describe different kinds of work and should not be collapsed into a single completion figure. The spotlight shows SDC130, Database Systems and SQL, at 90 percent, and SDC305, Software Architecture Using AI Tools, at 85 percent. Both are shown as in development, not as published deliverables. SDC130 also appears in the Phase One graphic, so it must not be counted twice if we later summarize the program portfolio. The resource queue is part of the honest picture: a visible pipeline provides a basis for planning, not a claim that the queued work is complete.\n\nTransition: These two phases point toward a sequence of deliberate next steps, rather than a set of invented deadline dates.`);
 }
 
 // Slide 7
