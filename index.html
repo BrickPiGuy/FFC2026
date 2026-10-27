@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#081a2b">
+  <meta name="description" content="The Augmented Craftsman Model: ECPI University's November 2026 Faculty Conference presentation on the future of software development education.">
+  <title>The Future of Software Development at ECPI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f5f8fa;
+      --muted: #a8bdcd;
+      --quiet: #6f899b;
+      --base: #081a2b;
+      --surface: #102a40;
+      --surface-raised: #15364f;
+      --rule: #294a60;
+      --teal: #49d2bf;
+      --blue: #7dafff;
+      --amber: #f4bd62;
+      --coral: #ec8c80;
+      --frame: min(1472px, calc(100vw - 56px));
+      font-family: "Manrope", "Avenir Next", sans-serif;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--base);
+      background-image: linear-gradient(90deg, transparent 49.94%, rgb(73 210 191 / 3%) 50%, transparent 50.06%),
+        linear-gradient(rgb(73 210 191 / 2%) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 72px;
+    }
+
+    button, a { font: inherit; }
+    button { color: inherit; }
+    button:focus-visible, a:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
+
+    .presentation {
+      display: grid;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      grid-template-rows: 68px minmax(0, 1fr) 76px;
+      overflow: hidden;
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: var(--frame);
+      margin-inline: auto;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .topbar::before {
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 44px;
+      height: 3px;
+      background: var(--teal);
+      content: "";
+    }
+
+    .wordmark {
+      display: inline-flex;
+      gap: 12px;
+      align-items: center;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+
+    .wordmark-mark {
+      display: grid;
+      width: 28px;
+      height: 28px;
+      place-items: center;
+      border: 1px solid var(--teal);
+      color: var(--teal);
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0;
+    }
+
+    .topbar-meta, .conference-tag, .eyebrow, .slide-count, .source-flag, .progress-label {
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .topbar-meta { color: var(--muted); }
+
+    .stage {
+      position: relative;
+      width: var(--frame);
+      height: 100%;
+      min-height: 0;
+      margin: 0 auto;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: clamp(18px, 3.5vh, 38px) clamp(2px, 2vw, 30px);
+      animation: enter 420ms cubic-bezier(.2, .7, .2, 1) both;
+    }
+
+    .slide.is-active { display: flex; }
+
+    .slide-inner { width: 100%; max-height: 100%; }
+
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(9px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .eyebrow { margin: 0 0 18px; color: var(--teal); }
+    .slide-heading { margin: 0; font-size: clamp(32px, 4vw, 53px); font-weight: 800; letter-spacing: 0; line-height: 1.05; }
+    .slide-subtitle { max-width: 760px; margin: 14px 0 0; color: var(--muted); font-size: clamp(14px, 1.45vw, 18px); line-height: 1.55; }
+    .section-heading { margin-bottom: clamp(24px, 4vh, 42px); }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.16fr) minmax(390px, .84fr);
+      gap: clamp(32px, 6vw, 88px);
+      align-items: center;
+    }
+
+    .hero-copy { max-width: 720px; }
+    .hero-copy .eyebrow { margin-bottom: 22px; }
+    .hero-title { margin: 0; font-size: clamp(43px, 6vw, 82px); font-weight: 800; letter-spacing: -0.035em; line-height: .99; }
+    .hero-subtitle { margin: 30px 0 0; color: var(--teal); font-size: clamp(19px, 2vw, 26px); font-weight: 700; }
+    .hero-promise { margin: 14px 0 0; color: var(--muted); font-size: clamp(15px, 1.45vw, 18px); line-height: 1.65; }
+    .conference-tag { display: inline-flex; gap: 10px; align-items: center; margin-top: 37px; color: var(--quiet); }
+    .conference-tag::before { width: 20px; height: 1px; background: var(--teal); content: ""; }
+
+    .workbench {
+      position: relative;
+      min-height: 395px;
+      padding: 27px 30px;
+      overflow: hidden;
+      border: 1px solid var(--rule);
+      background: linear-gradient(145deg, rgb(21 54 79 / 90%), rgb(16 42 64 / 78%) 62%, rgb(8 26 43 / 94%));
+    }
+
+    .workbench::after {
+      position: absolute;
+      right: -80px;
+      bottom: -123px;
+      width: 255px;
+      height: 255px;
+      border: 1px solid rgb(73 210 191 / 16%);
+      border-radius: 50%;
+      box-shadow: 0 0 0 28px rgb(73 210 191 / 3%), 0 0 0 57px rgb(73 210 191 / 2%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .workbench-label { display: flex; justify-content: space-between; padding-bottom: 17px; border-bottom: 1px solid var(--rule); color: var(--muted); font-family: "DM Mono", monospace; font-size: 9px; letter-spacing: .07em; text-transform: uppercase; }
+    .workflow { display: grid; gap: 16px; margin-top: 28px; }
+    .workflow-row { display: flex; align-items: center; gap: 15px; color: var(--muted); font-family: "DM Mono", monospace; font-size: clamp(13px, 1.4vw, 17px); }
+    .workflow-index { display: grid; width: 29px; height: 29px; flex: 0 0 29px; place-items: center; border: 1px solid var(--rule); color: var(--teal); font-size: 10px; }
+    .workflow-row strong { color: var(--ink); font-size: clamp(17px, 1.9vw, 22px); font-weight: 500; }
+    .workflow-row:nth-child(2) .workflow-index, .workflow-row:nth-child(2) strong { color: var(--blue); }
+    .workflow-row:nth-child(3) .workflow-index, .workflow-row:nth-child(3) strong { color: var(--amber); }
+    .workbench-caption { position: relative; z-index: 1; margin: 31px 0 0 44px; color: var(--teal); font-family: "DM Mono", monospace; font-size: 10px; letter-spacing: .065em; text-transform: uppercase; }
+
+    .driver-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .driver { display: flex; min-height: clamp(205px, 28vh, 268px); flex-direction: column; padding: 24px; border: 1px solid var(--rule); background: linear-gradient(155deg, rgb(16 42 64 / 92%), rgb(12 32 49 / 92%)); }
+    .driver-top { display: flex; justify-content: space-between; align-items: center; }
+    .driver-number { color: var(--muted); font-family: "DM Mono", monospace; font-size: 11px; }
+    .driver-mark { width: 29px; height: 3px; background: var(--accent); }
+    .driver h3 { max-width: 290px; margin: auto 0 12px; font-size: clamp(19px, 2vw, 26px); font-weight: 700; line-height: 1.18; }
+    .driver p { max-width: 340px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .thesis { display: grid; grid-template-columns: 3px minmax(0, 1fr); gap: 20px; align-items: center; margin-top: 24px; padding: 20px 24px; background: var(--surface-raised); }
+    .thesis::before { width: 3px; height: 100%; min-height: 45px; background: var(--teal); content: ""; }
+    .thesis p { margin: 0; color: var(--muted); font-size: clamp(14px, 1.35vw, 17px); line-height: 1.5; }
+    .thesis strong { display: block; margin-top: 4px; color: var(--ink); font-size: clamp(16px, 1.6vw, 20px); }
+
+    .model-core { display: flex; justify-content: space-between; gap: 22px; align-items: center; margin-bottom: 24px; padding: 17px 20px; border: 1px solid rgb(73 210 191 / 42%); background: rgb(16 42 64 / 72%); }
+    .model-core h2 { margin: 0; color: var(--teal); font-size: clamp(17px, 2vw, 24px); font-weight: 800; }
+    .model-core p { margin: 0; color: var(--muted); font-size: 12px; }
+    .competency-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .competency { display: flex; min-height: 102px; gap: 15px; align-items: flex-start; padding: 17px 18px; border: 1px solid var(--rule); background: rgb(16 42 64 / 86%); }
+    .competency-mark { display: grid; width: 27px; height: 27px; flex: 0 0 27px; place-items: center; border: 1px solid var(--accent); color: var(--accent); font-family: "DM Mono", monospace; font-size: 9px; }
+    .competency h3 { margin: 1px 0 5px; font-size: 13px; font-weight: 700; }
+    .competency p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .model-foot { margin: 16px 0 0; color: var(--quiet); font-family: "DM Mono", monospace; font-size: 10px; text-align: center; }
+
+    .feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; }
+    .feature { min-height: clamp(155px, 22vh, 195px); padding: 18px 20px 17px; border: 1px solid var(--rule); background: rgb(16 42 64 / 82%); }
+    .feature-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .feature-icon { display: grid; width: 33px; height: 33px; place-items: center; border: 1px solid var(--accent); color: var(--accent); font-family: "DM Mono", monospace; font-size: 12px; }
+    .feature-number { color: var(--quiet); font-family: "DM Mono", monospace; font-size: 10px; }
+    .feature h3 { margin: 0 0 7px; font-size: 16px; font-weight: 700; }
+    .feature p { max-width: 320px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .fine-print { margin: 18px 0 0; color: var(--quiet); font-size: 10px; }
+
+    .source-slide { padding: clamp(6px, 1.2vh, 12px) 0; }
+    .source-slide .source-image { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .source-flag { position: absolute; z-index: 2; top: 14px; right: 12px; padding: 9px 12px; border: 1px solid rgb(244 189 98 / 55%); background: rgb(8 26 43 / 94%); color: var(--amber); font-size: 9px; text-align: center; }
+    .source-flag span { display: block; margin-top: 3px; color: var(--muted); font-size: 8px; }
+
+    .roadmap { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin: 24px 0 0; padding: 0; list-style: none; }
+    .roadmap::before { position: absolute; top: 13px; right: 8%; left: 8%; height: 1px; background: var(--rule); content: ""; }
+    .milestone { position: relative; padding-top: 42px; }
+    .milestone-dot { position: absolute; top: 5px; left: 0; width: 18px; height: 18px; border: 4px solid var(--base); border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+    .milestone-number { display: block; margin-bottom: 9px; color: var(--accent); font-family: "DM Mono", monospace; font-size: 10px; letter-spacing: .07em; }
+    .milestone h3 { max-width: 190px; min-height: 42px; margin: 0; font-size: clamp(13px, 1.3vw, 16px); line-height: 1.25; }
+    .milestone p { max-width: 190px; margin: 8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .roadmap-statement { margin: clamp(26px, 5vh, 44px) 0 0; padding: 19px 22px; border-left: 3px solid var(--teal); background: var(--surface-raised); font-size: clamp(16px, 1.8vw, 22px); font-weight: 700; line-height: 1.45; }
+    .roadmap-caveat { margin: 12px 0 0; color: var(--quiet); font-family: "DM Mono", monospace; font-size: 9px; }
+
+    .closing-copy { max-width: 900px; margin: 20px 0 0; color: var(--muted); font-size: clamp(15px, 1.6vw, 19px); line-height: 1.65; }
+    .contribution-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: clamp(24px, 4vh, 38px); }
+    .contribution { padding-top: 13px; border-top: 2px solid var(--accent); }
+    .contribution h3 { margin: 0 0 8px; font-size: 15px; }
+    .contribution p { max-width: 300px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .closing-quote { margin-top: clamp(25px, 4vh, 38px); padding: 23px 26px; border: 1px solid var(--rule); background: var(--surface-raised); text-align: center; }
+    .closing-quote p { margin: 0; font-size: clamp(16px, 2vw, 23px); font-weight: 700; line-height: 1.5; }
+    .closing-quote strong { color: var(--teal); }
+    .discussion { margin-top: 17px; color: var(--teal); font-family: "DM Mono", monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+
+    .controls {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      width: var(--frame);
+      grid-template-columns: minmax(100px, 1fr) auto minmax(100px, 1fr);
+      gap: 18px;
+      align-items: center;
+      margin-inline: auto;
+      border-top: 1px solid var(--rule);
+    }
+
+    .progress-wrap { display: flex; gap: 12px; align-items: center; }
+    .progress-label { min-width: 35px; color: var(--muted); font-size: 9px; }
+    .progress-track { width: min(140px, 14vw); height: 2px; background: var(--rule); }
+    .progress-fill { width: 12.5%; height: 100%; background: var(--teal); transition: width 240ms ease; }
+    .nav-group { display: flex; gap: 16px; align-items: center; }
+    .nav-button { display: grid; width: 37px; height: 37px; place-items: center; border: 1px solid var(--rule); background: transparent; cursor: pointer; transition: border-color 150ms ease, color 150ms ease, background 150ms ease; }
+    .nav-button:hover:not(:disabled) { border-color: var(--teal); background: rgb(73 210 191 / 8%); color: var(--teal); }
+    .nav-button:disabled { color: var(--quiet); cursor: not-allowed; opacity: .48; }
+    .nav-button svg { width: 15px; height: 15px; }
+    .slide-count { min-width: 56px; color: var(--muted); text-align: center; }
+    .download-link { justify-self: end; display: inline-flex; gap: 9px; align-items: center; min-height: 37px; padding: 0 13px; border: 1px solid var(--rule); color: var(--ink); font-size: 11px; font-weight: 700; text-decoration: none; transition: border-color 150ms ease, color 150ms ease; }
+    .download-link:hover { border-color: var(--teal); color: var(--teal); }
+    .download-link svg { width: 14px; height: 14px; }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+    @media (min-width: 1500px) {
+      :root { --frame: min(1472px, calc(100vw - 96px)); }
+    }
+
+    @media (max-width: 900px) {
+      :root { --frame: calc(100vw - 36px); }
+      .hero-layout { grid-template-columns: minmax(0, 1fr) minmax(280px, .86fr); gap: 26px; }
+      .workbench { min-height: 340px; padding: 22px; }
+      .driver { padding: 18px; }
+      .driver p { font-size: 12px; }
+      .competency { min-height: 112px; gap: 10px; padding: 13px; }
+      .feature { padding: 15px; }
+    }
+
+    @media (max-width: 640px) {
+      :root { --frame: calc(100vw - 32px); }
+      body { background-size: 100% 100%, 100% 60px; }
+      .presentation { min-height: 100svh; grid-template-rows: 58px minmax(0, 1fr) 66px; }
+      .topbar-meta { font-size: 8px; }
+      .wordmark { gap: 8px; font-size: 10px; }
+      .wordmark-mark { width: 25px; height: 25px; }
+      .slide { overflow-x: hidden; overflow-y: auto; padding: 25px 1px; }
+      .slide-inner { max-height: none; }
+      .slide-heading { font-size: clamp(31px, 9vw, 43px); }
+      .section-heading { margin-bottom: 22px; }
+      .hero-layout { display: flex; flex-direction: column; align-items: stretch; gap: 27px; }
+      .hero-title { font-size: clamp(43px, 13vw, 66px); }
+      .hero-copy .eyebrow { margin-bottom: 15px; }
+      .hero-subtitle { margin-top: 19px; font-size: 20px; }
+      .hero-promise { font-size: 14px; }
+      .conference-tag { margin-top: 21px; font-size: 8px; }
+      .workbench { min-height: 260px; padding: 19px; }
+      .workflow { gap: 10px; margin-top: 17px; }
+      .workflow-index { width: 25px; height: 25px; flex-basis: 25px; }
+      .workbench-caption { margin-top: 20px; }
+      .driver-grid, .feature-grid, .competency-grid, .contribution-grid { grid-template-columns: 1fr; }
+      .driver { min-height: 166px; }
+      .driver h3 { margin-top: 25px; }
+      .thesis { gap: 13px; margin-top: 14px; padding: 14px 16px; }
+      .model-core { flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 14px; }
+      .competency { min-height: auto; padding: 14px; }
+      .competency p { font-size: 12px; }
+      .model-foot { line-height: 1.6; }
+      .feature { min-height: auto; padding: 16px; }
+      .feature-head { margin-bottom: 12px; }
+      .feature p { font-size: 12px; }
+      .source-slide { overflow: hidden; padding: 2px 0; }
+      .source-slide .source-image { width: auto; max-width: none; height: auto; max-height: 100%; max-width: 100%; object-fit: contain; }
+      .source-flag { top: 6px; right: 0; max-width: 196px; padding: 6px 8px; font-size: 7px; }
+      .source-flag span { font-size: 7px; }
+      .roadmap { grid-template-columns: 1fr; gap: 0; margin-top: 16px; }
+      .roadmap::before { top: 8px; bottom: 10px; left: 8px; width: 1px; height: auto; }
+      .milestone { min-height: 93px; padding: 0 0 14px 34px; }
+      .milestone-dot { top: 2px; left: 0; }
+      .milestone-number { margin-bottom: 4px; }
+      .milestone h3 { min-height: 0; font-size: 15px; }
+      .milestone p { max-width: 100%; margin-top: 4px; font-size: 11px; }
+      .roadmap-statement { margin-top: 15px; padding: 14px; font-size: 16px; }
+      .closing-copy { margin-top: 13px; font-size: 14px; }
+      .contribution-grid { gap: 16px; margin-top: 22px; }
+      .contribution { padding-top: 10px; }
+      .contribution p { font-size: 11px; }
+      .closing-quote { margin-top: 23px; padding: 16px 14px; }
+      .closing-quote p { font-size: 16px; }
+      .controls { grid-template-columns: 1fr auto 1fr; gap: 6px; }
+      .progress-wrap { gap: 7px; }
+      .progress-track { width: 30px; }
+      .progress-label { font-size: 8px; }
+      .nav-group { gap: 8px; }
+      .nav-button { width: 33px; height: 33px; }
+      .slide-count { min-width: 49px; font-size: 9px; }
+      .download-link { gap: 0; width: 35px; min-height: 35px; justify-content: center; padding: 0; }
+      .download-link-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="presentation" aria-label="ECPI University faculty conference presentation">
+    <header class="topbar">
+      <a class="wordmark" href="#slide-1" aria-label="ECPI University, first slide">
+        <span class="wordmark-mark" aria-hidden="true">EC</span>
+        <span>ECPI UNIVERSITY</span>
+      </a>
+      <div class="topbar-meta">Faculty Conference <span aria-hidden="true">/</span> November 2026</div>
+    </header>
+
+    <div class="stage" id="stage" aria-live="polite" aria-atomic="true">
+      <section class="slide is-active" id="slide-1" aria-label="Slide 1 of 8: The Future of Software Development at ECPI">
+        <div class="slide-inner hero-layout">
+          <div class="hero-copy">
+            <p class="eyebrow">A future-ready software development program</p>
+            <h1 class="hero-title">The Future of Software Development at ECPI</h1>
+            <p class="hero-subtitle">The Augmented Craftsman Model</p>
+            <p class="hero-promise">Preserving the craft. Embracing the tools.<br>Preparing the next generation.</p>
+            <p class="conference-tag">November 2026 <span aria-hidden="true">/</span> Faculty Conference</p>
+          </div>
+          <div class="workbench" aria-label="A software development practice: intent, judgment, testing, refinement">
+            <div class="workbench-label"><span>A practice, not a shortcut</span><span>01 / ECPI</span></div>
+            <div class="workflow">
+              <div class="workflow-row"><span class="workflow-index">01</span><span>intent / design / build</span></div>
+              <div class="workflow-row"><span class="workflow-index">02</span><strong>judgment()</strong></div>
+              <div class="workflow-row"><span class="workflow-index">03</span><strong>test()</strong></div>
+              <div class="workflow-row"><span class="workflow-index">04</span><strong>refine()</strong></div>
+            </div>
+            <p class="workbench-caption">Human craft, strengthened by the right tools.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-2" aria-label="Slide 2 of 8: Why We Are Evolving" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-heading">
+            <p class="eyebrow">01 / The case for change</p>
+            <h2 class="slide-heading">Why We Are Evolving</h2>
+            <p class="slide-subtitle">Software development education must evolve with the profession.</p>
+          </header>
+          <div class="driver-grid">
+            <article class="driver" style="--accent: var(--teal)">
+              <div class="driver-top"><span class="driver-number">01</span><span class="driver-mark"></span></div>
+              <h3>AI changes the workflow.</h3>
+              <p>AI-assisted tools are changing how developers approach design, code, and iteration.</p>
+            </article>
+            <article class="driver" style="--accent: var(--blue)">
+              <div class="driver-top"><span class="driver-number">02</span><span class="driver-mark"></span></div>
+              <h3>Judgment matters more than output.</h3>
+              <p>Students need to reason about solutions, weigh trade-offs, and solve real problems.</p>
+            </article>
+            <article class="driver" style="--accent: var(--amber)">
+              <div class="driver-top"><span class="driver-number">03</span><span class="driver-mark"></span></div>
+              <h3>Delivery is a team practice.</h3>
+              <p>Modern software brings collaboration, version control, testing, and automation together.</p>
+            </article>
+          </div>
+          <div class="thesis"><p>The goal is not simply to teach students new tools.<strong>It is to develop stronger software developers.</strong></p></div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-3" aria-label="Slide 3 of 8: The Augmented Craftsman Model" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-heading">
+            <p class="eyebrow">02 / Educational philosophy</p>
+            <h2 class="slide-heading">The Augmented Craftsman Model</h2>
+            <p class="slide-subtitle">AI can extend capability; the developer remains responsible for the work.</p>
+          </header>
+          <div class="model-core">
+            <h2>Augmented Craftsman</h2>
+            <p>Human judgment leads. Tools extend what a developer can do.</p>
+          </div>
+          <div class="competency-grid">
+            <article class="competency" style="--accent: var(--teal)"><span class="competency-mark">01</span><div><h3>Engineering fundamentals</h3><p>Understand the systems we build.</p></div></article>
+            <article class="competency" style="--accent: var(--blue)"><span class="competency-mark">02</span><div><h3>Critical thinking</h3><p>Frame problems and weigh trade-offs.</p></div></article>
+            <article class="competency" style="--accent: var(--amber)"><span class="competency-mark">03</span><div><h3>Practical craftsmanship</h3><p>Write clear, maintainable software.</p></div></article>
+            <article class="competency" style="--accent: var(--amber)"><span class="competency-mark">04</span><div><h3>Responsible AI use</h3><p>Use assistance with discernment and accountability.</p></div></article>
+            <article class="competency" style="--accent: var(--teal)"><span class="competency-mark">05</span><div><h3>Collaborative practice</h3><p>Build through shared development workflows.</p></div></article>
+            <article class="competency" style="--accent: var(--blue)"><span class="competency-mark">06</span><div><h3>Continuous learning</h3><p>Adapt as tools, teams, and needs change.</p></div></article>
+          </div>
+          <p class="model-foot">AI augments developer judgment. It does not replace it.</p>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-4" aria-label="Slide 4 of 8: What Makes This Program Different" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-heading">
+            <p class="eyebrow">03 / Learning experience</p>
+            <h2 class="slide-heading">What Makes This Program Different?</h2>
+            <p class="slide-subtitle">A practical pathway connects tools, disciplined practice, and student judgment.</p>
+          </header>
+          <div class="feature-grid">
+            <article class="feature" style="--accent: var(--teal)"><div class="feature-head"><span class="feature-icon" aria-hidden="true">AI</span><span class="feature-number">01</span></div><h3>Applied AI</h3><p>Practice using AI throughout the development process.</p></article>
+            <article class="feature" style="--accent: var(--blue)"><div class="feature-head"><span class="feature-icon" aria-hidden="true">GIT</span><span class="feature-number">02</span></div><h3>Collaborative development</h3><p>Build fluency with Git and shared workflows.</p></article>
+            <article class="feature" style="--accent: var(--amber)"><div class="feature-head"><span class="feature-icon" aria-hidden="true">CI</span><span class="feature-number">03</span></div><h3>CI/CD + DevOps</h3><p>Connect automation, testing, and delivery.</p></article>
+            <article class="feature" style="--accent: var(--blue)"><div class="feature-head"><span class="feature-icon" aria-hidden="true">&gt;_</span><span class="feature-number">04</span></div><h3>Hands-on projects</h3><p>Learn by creating, reviewing, and refining.</p></article>
+            <article class="feature" style="--accent: var(--teal)"><div class="feature-head"><span class="feature-icon" aria-hidden="true">+</span><span class="feature-number">05</span></div><h3>Certification pathway</h3><p>Integrate industry certifications into the educational pathway.</p></article>
+            <article class="feature" style="--accent: var(--amber)"><div class="feature-head"><span class="feature-icon" aria-hidden="true">{ }</span><span class="feature-number">06</span></div><h3>Pragmatic engineering</h3><p>Pair creativity with sound technical judgment.</p></article>
+          </div>
+          <p class="fine-print">A proposed learning direction; specific curriculum and certification requirements remain subject to review.</p>
+        </div>
+      </section>
+
+      <section class="slide source-slide" id="slide-5" aria-label="Slide 5 of 8: Phase One progress and accomplishments" aria-hidden="true">
+        <h2 class="sr-only">Phase One: Progress and Accomplishments</h2>
+        <img class="source-image" src="./Phase_One_Progress_Infographic.png" alt="Phase One course development progress infographic. Course counts, statuses, and percentages are pending verification against the source workbook.">
+        <div class="source-flag">Review draft <span>Workbook verification pending</span></div>
+      </section>
+
+      <section class="slide source-slide" id="slide-6" aria-label="Slide 6 of 8: Phase Two progress" aria-hidden="true">
+        <h2 class="sr-only">Phase Two: Building the Next Wave</h2>
+        <img class="source-image" src="./Phase_Two_Progress_Infographic.png" alt="Phase Two course development infographic, including SDC130 and SDC305. Course counts, statuses, and percentages are pending verification against the source workbook.">
+        <div class="source-flag">Review draft <span>Workbook verification pending</span></div>
+      </section>
+
+      <section class="slide" id="slide-7" aria-label="Slide 7 of 8: Our Development Roadmap" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-heading">
+            <p class="eyebrow">04 / Next steps</p>
+            <h2 class="slide-heading">Our Development Roadmap</h2>
+            <p class="slide-subtitle">A sequence of milestones, with timing set as work and resources are confirmed.</p>
+          </header>
+          <ol class="roadmap">
+            <li class="milestone" style="--accent: var(--teal)"><span class="milestone-dot" aria-hidden="true"></span><span class="milestone-number">01</span><h3>Develop + refine</h3><p>Create course content and learning activities.</p></li>
+            <li class="milestone" style="--accent: var(--blue)"><span class="milestone-dot" aria-hidden="true"></span><span class="milestone-number">02</span><h3>Review + quality</h3><p>Strengthen accuracy, clarity, and instruction.</p></li>
+            <li class="milestone" style="--accent: var(--amber)"><span class="milestone-dot" aria-hidden="true"></span><span class="milestone-number">03</span><h3>Prepare faculty</h3><p>Align on course goals and teaching practice.</p></li>
+            <li class="milestone" style="--accent: var(--teal)"><span class="milestone-dot" aria-hidden="true"></span><span class="milestone-number">04</span><h3>Release + implement</h3><p>Bring reviewed courses into the pathway.</p></li>
+            <li class="milestone" style="--accent: var(--blue)"><span class="milestone-dot" aria-hidden="true"></span><span class="milestone-number">05</span><h3>Listen + improve</h3><p>Use feedback to guide continuous improvement.</p></li>
+          </ol>
+          <p class="roadmap-statement">A deliberate, phased approach to building a sustainable modern software development program.</p>
+          <p class="roadmap-caveat">SEQUENCE SHOWN / NO MILESTONE DATES ASSERTED</p>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-8" aria-label="Slide 8 of 8: Building the Future Together" aria-hidden="true">
+        <div class="slide-inner">
+          <header>
+            <p class="eyebrow">05 / Faculty partnership</p>
+            <h2 class="slide-heading">Building the Future Together</h2>
+          </header>
+          <p class="closing-copy">This transformation is about more than new courses or technologies. It is about equipping students with the judgment, confidence, craftsmanship, and adaptability to succeed in an evolving profession.</p>
+          <div class="contribution-grid">
+            <article class="contribution" style="--accent: var(--teal)"><h3>Share expertise</h3><p>Bring instructional insight and practical experience.</p></article>
+            <article class="contribution" style="--accent: var(--blue)"><h3>Shape the review</h3><p>Contribute to course review and ongoing improvement.</p></article>
+            <article class="contribution" style="--accent: var(--amber)"><h3>Coach judgment</h3><p>Help students pair new technical skills with professional discernment.</p></article>
+          </div>
+          <blockquote class="closing-quote"><p>“The future of software development is not AI versus developers.<br><strong>It is better developers, augmented by AI.”</strong></p></blockquote>
+          <p class="discussion">Discussion</p>
+        </div>
+      </section>
+    </div>
+
+    <footer class="controls" aria-label="Presentation controls">
+      <div class="progress-wrap" aria-label="Presentation progress">
+        <span class="progress-label" id="progress-label">01 / 08</span>
+        <div class="progress-track" role="progressbar" aria-label="Slide progress" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1" id="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+      <nav class="nav-group" aria-label="Slide navigation">
+        <button class="nav-button" id="previous" type="button" aria-label="Previous slide" title="Previous slide (Left arrow)">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <span class="slide-count" id="slide-count" aria-live="polite">01 <span aria-hidden="true">/</span> 08</span>
+        <button class="nav-button" id="next" type="button" aria-label="Next slide" title="Next slide (Right arrow or Space)">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </nav>
+      <a class="download-link" href="./ECPI_Augmented_Craftsman_Faculty_Conference_2026.pptx" download>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 17v3h14v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="download-link-label">Download PowerPoint</span>
+      </a>
+    </footer>
+  </main>
+
+  <script>
+    (() => {
+      const slides = [...document.querySelectorAll('.slide')];
+      const previous = document.querySelector('#previous');
+      const next = document.querySelector('#next');
+      const count = document.querySelector('#slide-count');
+      const progressLabel = document.querySelector('#progress-label');
+      const progressTrack = document.querySelector('#progress-track');
+      const progressFill = document.querySelector('#progress-fill');
+      let activeIndex = Math.max(0, Math.min(slides.length - 1, Number(location.hash.match(/^#slide-(\d+)$/)?.[1] || 1) - 1));
+
+      function showSlide(index, updateHistory = true) {
+        activeIndex = Math.max(0, Math.min(slides.length - 1, index));
+        slides.forEach((slide, i) => {
+          const active = i === activeIndex;
+          slide.classList.toggle('is-active', active);
+          slide.setAttribute('aria-hidden', String(!active));
+        });
+        const current = String(activeIndex + 1).padStart(2, '0');
+        const value = activeIndex + 1;
+        count.innerHTML = `${current} <span aria-hidden="true">/</span> ${String(slides.length).padStart(2, '0')}`;
+        progressLabel.textContent = `${current} / ${String(slides.length).padStart(2, '0')}`;
+        progressTrack.setAttribute('aria-valuenow', String(value));
+        progressFill.style.width = `${(value / slides.length) * 100}%`;
+        previous.disabled = activeIndex === 0;
+        next.disabled = activeIndex === slides.length - 1;
+        if (updateHistory) history.replaceState(null, '', `#slide-${value}`);
+      }
+
+      previous.addEventListener('click', () => showSlide(activeIndex - 1));
+      next.addEventListener('click', () => showSlide(activeIndex + 1));
+      document.addEventListener('keydown', (event) => {
+        if (event.altKey || event.ctrlKey || event.metaKey) return;
+        if (['ArrowRight', 'PageDown', ' '].includes(event.key)) {
+          event.preventDefault();
+          showSlide(activeIndex + 1);
+        } else if (['ArrowLeft', 'PageUp'].includes(event.key)) {
+          event.preventDefault();
+          showSlide(activeIndex - 1);
+        } else if (event.key === 'Home') {
+          showSlide(0);
+        } else if (event.key === 'End') {
+          showSlide(slides.length - 1);
+        }
+      });
+
+      window.addEventListener('hashchange', () => {
+        const match = location.hash.match(/^#slide-(\d+)$/);
+        if (match) showSlide(Number(match[1]) - 1, false);
+      });
+
+      let touchStartX = 0;
+      document.querySelector('#stage').addEventListener('touchstart', (event) => {
+        touchStartX = event.changedTouches[0].clientX;
+      }, { passive: true });
+      document.querySelector('#stage').addEventListener('touchend', (event) => {
+        const distance = event.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(distance) > 65) showSlide(activeIndex + (distance < 0 ? 1 : -1));
+      }, { passive: true });
+
+      showSlide(activeIndex, false);
+    })();
+  </script>
+</body>
+</html>
