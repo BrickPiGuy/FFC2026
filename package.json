@@ -1,0 +1,11 @@
+{
+  "name": "ecpi-augmented-craftsman-conference",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node build_presentation.js"
+  },
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}
